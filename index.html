@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hannah Beauty & Spa — Cổng Nhập Liệu Thu Chi</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --gold: #A0714F;
@@ -41,10 +41,8 @@
   }
 
   .logo-img {
-    height: 120px;
-    width: auto;
-    display: block;
-    margin: 0 auto 20px;
+    height: 120px; width: auto;
+    display: block; margin: 0 auto 20px;
     object-fit: contain;
   }
 
@@ -89,11 +87,9 @@
     border-bottom: 1px solid var(--border);
     padding: 0 16px;
   }
-
   .tabs {
     display: flex; max-width: 700px; margin: 0 auto;
   }
-
   .tab-btn {
     flex: 1; display: flex; align-items: center;
     justify-content: center; gap: 8px;
@@ -104,10 +100,8 @@
     border-bottom: 2px solid transparent;
     margin-bottom: -1px; transition: all 0.25s ease;
   }
-
   .tab-btn .tab-icon { font-size: 15px; }
   .tab-btn:hover:not(.active-thu):not(.active-chi):not(.active-ck) { color: var(--gold); }
-
   .tab-btn.active-thu { color:var(--green); border-bottom-color:var(--green); font-weight:500; }
   .tab-btn.active-chi { color:var(--red);   border-bottom-color:var(--red);   font-weight:500; }
   .tab-btn.active-ck  { color:var(--blue);  border-bottom-color:var(--blue);  font-weight:500; }
@@ -122,7 +116,6 @@
     display: flex; align-items: center;
     flex-wrap: wrap; gap: 10px;
   }
-
   .panel-badge {
     display: inline-flex; align-items: center; gap: 7px;
     padding: 5px 16px; border-radius: 20px;
@@ -131,12 +124,13 @@
   .panel-thu .panel-badge { background:rgba(45,90,61,0.08);  color:var(--green); }
   .panel-chi .panel-badge { background:rgba(122,32,32,0.08); color:var(--red);   }
   .panel-ck  .panel-badge { background:rgba(26,58,92,0.08);  color:var(--blue);  }
-
   .panel-desc { font-size: 11px; color: var(--muted); }
 
+  /* ── IFRAME CONTAINER ── */
   .iframe-wrap {
     max-width: 700px; margin: 16px auto 0;
     padding: 0 16px 48px;
+    position: relative;
   }
 
   .iframe-wrap iframe {
@@ -145,12 +139,62 @@
     border-radius: 8px;
     box-shadow: 0 4px 32px rgba(44,24,16,0.07);
     background: white;
+    display: block;
+  }
+
+  /* ── SUCCESS OVERLAY ── */
+  .success-overlay {
+    display: none;
+    position: absolute;
+    top: 0; left: 16px; right: 16px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 4px 32px rgba(44,24,16,0.07);
+    text-align: center;
+    padding: 60px 24px;
+    animation: fadeUp 0.4s ease forwards;
+  }
+
+  .success-overlay.show { display: block; }
+
+  .success-icon {
+    font-size: 48px; margin-bottom: 16px;
+    display: block;
+  }
+
+  .success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 400;
+    color: var(--green); margin-bottom: 8px;
+  }
+
+  .success-msg {
+    font-size: 13px; color: var(--muted);
+    margin-bottom: 32px; line-height: 1.6;
+  }
+
+  .btn-new {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--green); color: white;
+    border: none; border-radius: 6px;
+    padding: 12px 28px; font-size: 14px;
+    font-family: 'DM Sans', sans-serif;
+    cursor: pointer; transition: all 0.25s;
+    margin: 0 6px 12px;
+  }
+  .btn-new:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-new.red { background: var(--red); }
+  .btn-new.blue { background: var(--blue); }
+
+  .countdown {
+    font-size: 11px; color: var(--muted);
+    margin-top: 16px; letter-spacing: 0.5px;
   }
 
   /* ── FOOTER ── */
   .footer {
-    text-align: center;
-    padding: 16px 20px 40px;
+    text-align: center; padding: 16px 20px 40px;
     position: relative; z-index: 1;
   }
   .footer-divider {
@@ -191,6 +235,7 @@
     .tab-btn { font-size:12px; padding:13px 4px; gap:5px; }
     .tab-btn .tab-icon { font-size:13px; }
     .tab-btn .tab-label { font-size:11px; }
+    .btn-new { padding: 10px 20px; font-size: 13px; }
   }
 </style>
 </head>
@@ -228,36 +273,69 @@
 <!-- PANELS -->
 <div class="panels">
 
+  <!-- DOANH THU -->
   <div class="panel panel-thu active" id="panel-thu">
     <div class="panel-header">
       <div class="panel-badge">💰 Nhập Doanh Thu</div>
       <div class="panel-desc">Tiền mặt · Chuyển khoản · Quẹt thẻ · Thẻ trả trước</div>
     </div>
-    <div class="iframe-wrap">
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScTwJPlFJsEkTs3twJuCyBIAgt1mDL5e48lP_weKZu_iF0L5w/viewform?embedded=true"
+    <div class="iframe-wrap" id="wrap-thu">
+      <iframe id="iframe-thu"
+        src="https://docs.google.com/forms/d/e/1FAIpQLScTwJPlFJsEkTs3twJuCyBIAgt1mDL5e48lP_weKZu_iF0L5w/viewform?embedded=true"
         height="1256" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
+      <div class="success-overlay" id="success-thu">
+        <span class="success-icon">✅</span>
+        <div class="success-title">Đã lưu thành công!</div>
+        <div class="success-msg">Hannah Spa đã ghi nhận doanh thu của bạn 🌸<br>Nhấn bên dưới để nhập tiếp hoặc chuyển sang mục khác.</div>
+        <button class="btn-new" onclick="resetForm('thu')">➕ Nhập Doanh Thu Tiếp</button>
+        <button class="btn-new red" onclick="switchTab('chi'); resetForm('chi')">💸 Chuyển sang Chi Phí</button>
+        <button class="btn-new blue" onclick="switchTab('ck'); resetForm('ck')">🔄 Chuyển sang CK Nội Bộ</button>
+        <div class="countdown" id="countdown-thu"></div>
+      </div>
     </div>
   </div>
 
+  <!-- CHI PHÍ -->
   <div class="panel panel-chi" id="panel-chi">
     <div class="panel-header">
       <div class="panel-badge">💸 Nhập Chi Phí</div>
       <div class="panel-desc">Vận hành · Nhân sự · Marketing · Sửa chữa</div>
     </div>
-    <div class="iframe-wrap">
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScS7va89WX-Y9GN4i2HjNHABAQOYEgPLrFwZFOAFEDXa4Lf0A/viewform?embedded=true"
+    <div class="iframe-wrap" id="wrap-chi">
+      <iframe id="iframe-chi"
+        src="https://docs.google.com/forms/d/e/1FAIpQLScS7va89WX-Y9GN4i2HjNHABAQOYEgPLrFwZFOAFEDXa4Lf0A/viewform?embedded=true"
         height="2938" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
+      <div class="success-overlay" id="success-chi">
+        <span class="success-icon">✅</span>
+        <div class="success-title">Đã lưu thành công!</div>
+        <div class="success-msg">Hannah Spa đã ghi nhận chi phí của bạn 🌸<br>Nhấn bên dưới để nhập tiếp hoặc chuyển sang mục khác.</div>
+        <button class="btn-new red" onclick="resetForm('chi')">➕ Nhập Chi Phí Tiếp</button>
+        <button class="btn-new" onclick="switchTab('thu'); resetForm('thu')">💰 Chuyển sang Doanh Thu</button>
+        <button class="btn-new blue" onclick="switchTab('ck'); resetForm('ck')">🔄 Chuyển sang CK Nội Bộ</button>
+        <div class="countdown" id="countdown-chi"></div>
+      </div>
     </div>
   </div>
 
+  <!-- CHUYỂN KHOẢN -->
   <div class="panel panel-ck" id="panel-ck">
     <div class="panel-header">
       <div class="panel-badge">🔄 Chuyển Khoản Nội Bộ</div>
       <div class="panel-desc">Nộp Tiền Mặt · TP Bank → MB Bank</div>
     </div>
-    <div class="iframe-wrap">
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSff2mOP3rmumSazJAvTgSzC_qPUtSD-bPcBhmiclx9vgVnKyw/viewform?embedded=true"
+    <div class="iframe-wrap" id="wrap-ck">
+      <iframe id="iframe-ck"
+        src="https://docs.google.com/forms/d/e/1FAIpQLSff2mOP3rmumSazJAvTgSzC_qPUtSD-bPcBhmiclx9vgVnKyw/viewform?embedded=true"
         height="1176" frameborder="0" marginheight="0" marginwidth="0">Đang tải…</iframe>
+      <div class="success-overlay" id="success-ck">
+        <span class="success-icon">✅</span>
+        <div class="success-title">Đã lưu thành công!</div>
+        <div class="success-msg">Hannah Spa đã ghi nhận chuyển khoản của bạn 🌸<br>Nhấn bên dưới để nhập tiếp hoặc chuyển sang mục khác.</div>
+        <button class="btn-new blue" onclick="resetForm('ck')">➕ Nhập CK Tiếp</button>
+        <button class="btn-new" onclick="switchTab('thu'); resetForm('thu')">💰 Chuyển sang Doanh Thu</button>
+        <button class="btn-new red" onclick="switchTab('chi'); resetForm('chi')">💸 Chuyển sang Chi Phí</button>
+        <div class="countdown" id="countdown-ck"></div>
+      </div>
     </div>
   </div>
 
@@ -271,6 +349,7 @@
 </div>
 
 <script>
+  // ── Ngày hiện tại ──
   const days = ['Chủ Nhật','Thứ Hai','Thứ Ba','Thứ Tư','Thứ Năm','Thứ Sáu','Thứ Bảy'];
   const now = new Date();
   const d = now.getDate().toString().padStart(2,'0');
@@ -278,6 +357,7 @@
   document.getElementById('currentDate').textContent =
     `${days[now.getDay()]}, ${d}/${m}/${now.getFullYear()}`;
 
+  // ── Tab switching ──
   const activeClass = { thu:'active-thu', chi:'active-chi', ck:'active-ck' };
 
   function switchTab(name) {
@@ -289,6 +369,69 @@
     document.getElementById('tab-'+name).classList.add(activeClass[name]);
     window.scrollTo({ top:0, behavior:'smooth' });
   }
+
+  // ── Form URLs ──
+  const formUrls = {
+    thu: 'https://docs.google.com/forms/d/e/1FAIpQLScTwJPlFJsEkTs3twJuCyBIAgt1mDL5e48lP_weKZu_iF0L5w/viewform?embedded=true',
+    chi: 'https://docs.google.com/forms/d/e/1FAIpQLScS7va89WX-Y9GN4i2HjNHABAQOYEgPLrFwZFOAFEDXa4Lf0A/viewform?embedded=true',
+    ck:  'https://docs.google.com/forms/d/e/1FAIpQLSff2mOP3rmumSazJAvTgSzC_qPUtSD-bPcBhmiclx9vgVnKyw/viewform?embedded=true'
+  };
+
+  // ── Reset form (ẩn overlay, reload iframe) ──
+  function resetForm(name) {
+    document.getElementById('success-'+name).classList.remove('show');
+    const iframe = document.getElementById('iframe-'+name);
+    iframe.src = formUrls[name];
+    window.scrollTo({ top:0, behavior:'smooth' });
+  }
+
+  // ── Phát hiện submit qua thay đổi URL iframe ──
+  const iframeHeights = { thu: 1256, chi: 2938, ck: 1176 };
+  let countdownTimers = {};
+
+  function watchIframe(name) {
+    const iframe = document.getElementById('iframe-'+name);
+    iframe.addEventListener('load', function() {
+      try {
+        const url = iframe.contentWindow.location.href;
+        // Google Forms redirect sang /formResponse sau khi submit
+        if (url && url.indexOf('formResponse') > -1) {
+          showSuccess(name);
+        }
+      } catch(e) {
+        // Cross-origin — dùng height thay đổi để detect
+        // Khi submit xong, iframe thu nhỏ lại
+        const h = iframe.offsetHeight;
+        if (h < 300 && h > 0) {
+          showSuccess(name);
+        }
+      }
+    });
+  }
+
+  function showSuccess(name) {
+    document.getElementById('success-'+name).classList.add('show');
+    window.scrollTo({ top:0, behavior:'smooth' });
+
+    // Countdown tự động reset sau 30 giây
+    let secs = 30;
+    const cdEl = document.getElementById('countdown-'+name);
+    cdEl.textContent = `Tự động reset sau ${secs} giây...`;
+
+    if (countdownTimers[name]) clearInterval(countdownTimers[name]);
+    countdownTimers[name] = setInterval(function() {
+      secs--;
+      if (secs <= 0) {
+        clearInterval(countdownTimers[name]);
+        resetForm(name);
+      } else {
+        cdEl.textContent = `Tự động reset sau ${secs} giây...`;
+      }
+    }, 1000);
+  }
+
+  // Khởi động watch cho cả 3 form
+  ['thu','chi','ck'].forEach(watchIframe);
 </script>
 </body>
 </html>
